@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="ejs.js"></script>
     <script src="script.js" defer></script>
     <title>Message Board</title>
 </head>
@@ -15,8 +16,21 @@
         <h1>ABC Message Board</h1>
     </header>
     <main>
+
         <div>
+            <ul>
+                <% messages.forEach(msg=>{ %>
+                    <li>
+                        <div class="name">
+                            <%- msg.name%> on <%- msg.date%>
+                        </div> - <%-msg.msg %> - <a href="messages/<%-msg.id%>">Details</a>
+                    </li>
+                    <% }); %>
+            </ul>
         </div>
+
+
+
         <div>
             <label for="message-submit"></label>
             <form method="POST" action="/">

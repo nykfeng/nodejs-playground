@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message details | <%= message.name %>
+    </title>
+</head>
+
+<body>
+
+    <div>
+        <h1>message id: <%= message.id%>
+        </h1>
+    </div>
+    <div>
+        <p>
+            <%= message.msg %>
+        </p>
+    </div>
+    <div class="name">
+        <p>by <%= message.name %>
+        </p>
+    </div>
+    <div>
+        <p>on <%= message.date %>
+        </p>
+    </div>
+
+    <div>
+        <a href="/">Back</a>
+        <a href="/messages/<%=message.id %>/edit">Edit Message</a>
+    </div>
+
+</body>
+
+</html>
