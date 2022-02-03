@@ -27,7 +27,7 @@ app.set("views", path.join(__dirname, "views")); // views not view
 app.use(express.static(__dirname + "/public")); // This will be for ejs to use public files like css, images
 
 app.get("/", (req, res) => {
-  res.render("home", { messages: messages });
+  res.render("home", { messages });
 });
 
 app.post("/", (req, res) => {
@@ -35,7 +35,7 @@ app.post("/", (req, res) => {
   messages.push({
     name: req.body.userName,
     msg: req.body.message,
-    date: new Date(),
+    date: new Date().toLocaleDateString("en-US"),
     id: uuid(),
   });
   console.log(messages);
