@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 
-const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoibnlrZmVuZyIsImEiOiJja3plY2szcjkzNTE2MzBwdnBieno2dzdsIn0.-di7rtOp_Iv7lxlIRDAwX`;
+const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoibnlrZmVuZyIsImEiOiJja3plY2szcjkzNTE2MzBwdnBieno2dzdsIn0.-di7rtOp_Iv7lxlIRDAwXw`;
 
 const getInfo = async function () {
   try {
