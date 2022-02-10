@@ -6,17 +6,17 @@ const address = process.argv[2];
 if (!address) {
   console.log("Please enter a location for weather.");
 } else {
-  geocode(address, (error, data) => {
+  geocode(address, (error, { latitude, longitude }) => {
     if (error) {
       return console.log("Geocode Error: ", error);
     }
 
-    forecast(data.latitude, data.longitude, (error, forecastData) => {
+    forecast(latitude, longitude, (error, forecastData) => {
       if (error) {
         return console.log("Forecast Error: ", error);
       }
 
-      console.log("Forecast Data: ", forecastData);
+      console.log(`Forecast data for << ${address} >>`, forecastData);
     });
   });
 }

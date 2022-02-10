@@ -8,7 +8,7 @@ const forecast = async (latitude, longitude, callback) => {
     const res = await axios(url);
     callback(
       undefined,
-      `It is currently ${res.data.weather[0].description} at ${Math.floor(
+      `is currently ${res.data.weather[0].description} at ${Math.floor(
         (res.data.main.temp - 273) * (9 / 5) + 32
       )} °F. It feels like ${Math.floor(
         (res.data.main.feels_like - 273) * (9 / 5) + 32
