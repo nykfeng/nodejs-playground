@@ -72,11 +72,7 @@ app.get("/weather", (req, res) => {
       });
     }
   );
-  // res.send({
-  //   forecast: "It is snowing",
-  //   location: "New York",
-  //   address: req.query.address,
-  // });
+
 });
 
 app.get("/help/*", (req, res) => {

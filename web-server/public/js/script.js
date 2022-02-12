@@ -12,14 +12,12 @@ weatherForm.addEventListener("submit", (e) => {
   fetch(`/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
       if (data.error) {
-        console.log(data.error);
         locationEl.textContent = data.error;
       } else {
-        console.log(data.location);
         locationEl.textContent = data.location;
-        console.log(data.forecast);
         forecastEl.textContent = data.forecast;
       }
     });
   });
 });
+

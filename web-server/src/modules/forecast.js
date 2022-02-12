@@ -1,8 +1,10 @@
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({ path: "./.env" });
 const axios = require("axios");
 
 const forecast = async (latitude, longitude, callback) => {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.OPEN_WEATHER_API_KEY}`;
+  console.log("forecast url", url);
+
 
   try {
     const res = await axios(url);

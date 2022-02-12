@@ -1,8 +1,9 @@
-require("dotenv").config({ path: "../.env" }); // Need to put absolute path here this time, because this is a module js. geocode will be called by app
+require("dotenv").config({ path: "./.env" }); 
 const axios = require("axios");
 
 const geocode = async (address, callback) => {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?${process.env.MAPBOX_API_KEY}`;
+  console.log("geocode url", url);
 
   try {
     const res = await axios(url);
