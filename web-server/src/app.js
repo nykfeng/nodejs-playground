@@ -2,6 +2,10 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const hbs = require("hbs");
+const { nextTick } = require("process");
+
+const forecast = require("./modules/forecast");
+const geocode = require("./modules/geocode");
 
 const PORT = process.env.PORT || 3000;
 
@@ -31,20 +35,46 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about", {
-    title: "About me and the app",
+    title: "About the app",
     name: "nykfeng",
   });
 });
 
 app.get("/help", (req, res) => {
   res.render("help", {
-    title: "I will help you here",
+    title: "Help Center",
     name: "nykfeng",
   });
 });
 
 app.get("/weather", (req, res) => {
-  res.send("Your weather");
+  if (!req.query.address) {
+    return res.send({
+      error: " Provide an address or location.",
+    });
+  }
+
+  geocode(req.query.address, (error, {latitude, longitude, location})=> {
+    if (error) {
+      return res.send({error});
+    } 
+    forecast(latitude, longitude, (error, forecastData)=> {
+      if (error) {
+        return res.send({error});
+      } 
+      res.send({
+        forecase: forecastData,
+        location,
+        address: req.query.address
+      })
+    })
+
+  })
+  // res.send({
+  //   forecast: "It is snowing",
+  //   location: "New York",
+  //   address: req.query.address,
+  // });
 });
 
 app.get("/help/*", (req, res) => {
@@ -52,6 +82,15 @@ app.get("/help/*", (req, res) => {
     title: "404",
     name: "nykfeng",
     errorMessage: "Help article not found!",
+  });
+});
+
+app.get("/products", (req, res) => {
+  if (!req.query.search) {
+    return res.send({ error: "You must provide a search term!" });
+  }
+  res.send({
+    products: [],
   });
 });
 
