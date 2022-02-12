@@ -16,12 +16,11 @@ const forecast = async (latitude, longitude, callback) => {
     );
   } catch (error) {
     if (error) {
-      callback("Unable to connect to server!", undefined);
+      callback("Unable to connect to forecast server!", undefined);
     } else if (!res.data.weather) {
       callback("Unable to find location. Try another search.", undefined);
     }
   }
 };
-
 
 module.exports = forecast;

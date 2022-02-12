@@ -11,8 +11,16 @@
 
   <body>
     {{>header}}
-    <h2>header 2</h2>
-    <img class="portrait" src="/img/sunny.jpg" alt="" />
+    <h2>Real time weather forecast for you~!</h2>
+    {{!-- <img class="portrait" src="/img/sunny.jpg" alt="" /> --}}
+
+    <form action="" method="GET">
+      <input type="text" placeholder="location">
+      <button>Search</button>
+
+      <p class="location"></p>
+      <p class="forecast"></p>
+    </form>
     {{>footer}}
   </body>
 

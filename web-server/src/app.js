@@ -54,22 +54,24 @@ app.get("/weather", (req, res) => {
     });
   }
 
-  geocode(req.query.address, (error, {latitude, longitude, location})=> {
-    if (error) {
-      return res.send({error});
-    } 
-    forecast(latitude, longitude, (error, forecastData)=> {
+  geocode(
+    req.query.address,
+    (error, { latitude, longitude, location } = {}) => {
       if (error) {
-        return res.send({error});
-      } 
-      res.send({
-        forecase: forecastData,
-        location,
-        address: req.query.address
-      })
-    })
-
-  })
+        return res.send({ error });
+      }
+      forecast(latitude, longitude, (error, forecastData) => {
+        if (error) {
+          return res.send({ error });
+        }
+        res.send({
+          forecast: forecastData,
+          location,
+          address: req.query.address,
+        });
+      });
+    }
+  );
   // res.send({
   //   forecast: "It is snowing",
   //   location: "New York",
@@ -105,3 +107,15 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is up and running on port ${PORT}`);
 });
+
+// const greeter = (name = "user") => {
+//   console.log("Hi " + name);
+// };
+
+// greeter("Andy");
+// greeter();
+
+// const transaction = (type, { label, stock = 0 } = {}) => {
+//   console.log(type, label, stock);
+// };
+// transaction("order");
