@@ -7,7 +7,7 @@ const forecastEl = document.querySelector("p.forecast");
 weatherForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const location = search.value;
-  console.log(location);
+  locationEl.textContent = "loading...";
 
   fetch(`/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
@@ -20,4 +20,3 @@ weatherForm.addEventListener("submit", (e) => {
     });
   });
 });
-
