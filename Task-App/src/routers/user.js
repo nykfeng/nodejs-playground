@@ -41,6 +41,7 @@ router.post("/users/login", async (req, res) => {
     const token = await user.generateAuthToken();
 
     res.send({ user, token });
+    
   } catch (error) {
     res.status(400).send();
   }
@@ -55,6 +56,17 @@ router.post("/users/logout", auth, async (req, res) => {
     });
     // filter out the token that needs to be revoked
     // then save the rest of the tokens back to req.user
+    await req.user.save();
+    res.send();
+  } catch (error) {
+    res.status(500).send();
+  }
+});
+
+router.post("/users/logoutAll", auth, async (req, res) => {
+  try {
+    // Logout all sessions
+    req.user.tokens = [];
     await req.user.save();
     res.send();
   } catch (error) {
@@ -80,7 +92,7 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-router.patch("/users/:id", async (req, res) => {
+router.patch("/users/me", auth, async (req, res) => {
   // currently, patch update only allows for update to existing fields
   // If you want to add a field to the document
   const updates = Object.keys(req.body);
@@ -94,23 +106,11 @@ router.patch("/users/:id", async (req, res) => {
     return res.status(400).send({ error: "Invalid updates!" });
   }
 
-  console.log(req.body);
   try {
-    const user = await User.findById(req.params.id);
-    console.log("user: ", user);
+    const user = req.user;
     updates.forEach((update) => (user[update] = req.body[update]));
     await user.save();
 
-    // const user = await User.findByIdAndUpdate(_id, req.body, {
-    //   new: true,
-    //   runValidators: true,
-    // });
-
-    // no user
-    if (!user) {
-      console.log("no such user");
-      return res.status(404).send();
-    }
     //
     res.send(user);
   } catch (error) {
@@ -119,14 +119,10 @@ router.patch("/users/:id", async (req, res) => {
   }
 });
 
-router.delete("/users/:id", async (req, res) => {
+router.delete("/users/me", auth, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
-
-    if (!user) {
-      return res.status(404).send();
-    }
-    res.send(user);
+    await req.user.remove(); // mongoose has a remove method
+    res.send(req.user);
   } catch (error) {
     res.status(500).send();
   }

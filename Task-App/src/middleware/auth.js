@@ -16,6 +16,7 @@ const auth = async (req, res, next) => {
 
     req.token = token;
     req.user = user; // Doing this just so that the route handler doesn't have to verify the user again
+    // Also so that req.user will be THE user 
     next(); // If the user if found, we will allow it to run
   } catch (error) {
     res.status(401).send({ error: "Please authenticate yourself!" });
