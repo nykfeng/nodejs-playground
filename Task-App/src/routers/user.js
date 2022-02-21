@@ -2,6 +2,7 @@ const express = require("express");
 const { JsonWebTokenError } = require("jsonwebtoken");
 const User = require("../models/user");
 const router = express.Router();
+const multer = require('multer');
 
 const auth = require("../middleware/auth");
 
@@ -127,5 +128,22 @@ router.delete("/users/me", auth, async (req, res) => {
     res.status(500).send();
   }
 });
+
+const upload = multer({
+  dest: 'avatars',
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error('Please use jpg or png image format'));
+    }
+    cb(undefined, true);
+  }
+})
+// This has to be a separate route, because in here we are accepting form data instead of req.body json
+router.post('/users/me/avatar', upload.single('avatar'), (req, res)=> {
+  res.send();
+})
 
 module.exports = router;
