@@ -4,4 +4,4 @@
 # dependencies
 node_modules/
 
-dev.env
+config
