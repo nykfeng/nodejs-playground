@@ -13,23 +13,4 @@ app.listen(port, () => {
   console.log(`Server is up and running on port ${port}`);
 });
 
-const multer = require("multer");
-const upload = multer({
-  dest: "images", //destination path
-  limits: {
-    fileSize: 1000000,
-  },
-  fileFilter(req, file, cb) {
-    // cb(new Error('File must be of designated format'));
-    // cb(undefined, true);
-    // cb(undefined, false);
-    if (!file.originalname.match(/\.(doc|docx)$/)) {
-      return cb(new Error("PLease upload a Word document"));
-    }
-    cb(undefined, true);
-  },
-});
 
-app.post("/upload", upload.single("upload"), (req, res) => {
-  res.send();
-});
